@@ -58,6 +58,32 @@ async function run() {
         res.send(result)
     })
 
+    // app.get('/art_and_crafts/:id', async (req, res) => {
+    //   const result = await dataCollection.findOne({ _id: new ObjectId(req.params.id) });
+    //   res.send(result)
+    // })
+
+    app.put('/art_and_crafts/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = req.body;
+      const updatedItem = {
+        $set: {
+          image_url:updateDoc.image_url,
+          item_name:updateDoc.item_name,
+          short_description:updateDoc.short_description,
+          price:updateDoc.price,
+          subcategory_name:updateDoc.subcategory_name,
+          processing_time:updateDoc.processing_time,
+          email:updateDoc.email,
+          name:updateDoc.name,
+          },
+      };
+      const result = await dataCollection.updateOne(filter, updatedItem, options);
+      res.send(result)
+    })
+
     app.delete('/art_and_crafts/:id', async (req, res) => {
       const result = await dataCollection.deleteOne({ _id: new ObjectId(req.params.id) });
       res.send(result)
