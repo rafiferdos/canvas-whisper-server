@@ -40,6 +40,11 @@ async function run() {
       res.send(result);
     })
 
+    app.get('/singleItem/:id', async (req, res) => {
+      const result = await dataCollection.findOne({ _id: req.params.id });
+      res.send(result);
+    })
+
     // app.get('/art_and_crafts/:id', async (req, res) => {
     //   const result = await dataCollection.findOne({ _id: req.params.id });
     //   res.send(result);
