@@ -29,6 +29,17 @@ async function run() {
 
     const dataCollection = client.db('dataDB').collection('data')
 
+    app.get('/art_and_crafts', async (req, res) => {
+        const cursor = dataCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
+
+    app.get('/myArtAndCrafts/:email', async (req, res) => {
+      const result = await dataCollection.find({email: req.params.email}).toArray();
+      res.send(result);
+    })
+
     app.post('/art_and_crafts', async (req, res)=> {
         const newData = req.body;
         console.log(newData);
