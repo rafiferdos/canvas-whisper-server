@@ -36,9 +36,14 @@ async function run() {
     })
 
     app.get('/myArtAndCrafts/:email', async (req, res) => {
-      const result = await dataCollection.find({email: req.params.email}).toArray();
+      const result = await dataCollection.find({userEmail: req.params.email}).toArray();
       res.send(result);
     })
+
+    // app.get('/art_and_crafts/:id', async (req, res) => {
+    //   const result = await dataCollection.findOne({ _id: req.params.id });
+    //   res.send(result);
+    // })
 
     app.post('/art_and_crafts', async (req, res)=> {
         const newData = req.body;
